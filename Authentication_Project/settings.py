@@ -144,3 +144,21 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#For login authentication
+AUTHENTICATION_BACKENDS = [
+    'app_account.authentication_backends.EmailBackEnd',
+    'django.contrib.auth.backends.ModelBackend',  # ডিফল্ট ব্যাকএন্ড রাখা হলো
+]
+
+
+
+# # settings.py
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'minions.milu88@gmail.com' 
+# EMAIL_HOST_PASSWORD = 'dydd pfqz opwj dbme'
+
