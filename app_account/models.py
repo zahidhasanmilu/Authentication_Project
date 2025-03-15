@@ -9,7 +9,7 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("Email must be set !")
         email = self.normalize_email(email)
-        extra_fields.setdefault('is_active', True)  # ✅ is_active=True সেট করা হলো
+        extra_fields.setdefault('is_active', True) 
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -51,6 +51,12 @@ class CustomUser(AbstractUser):
         return self.email
 
 
+
+
+import os
+def profile_directory_path(instance, filename):
+    return os.path.join('user_profile', instance.user.email, filename)
+
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     address_line_1 = models.CharField(null=True, blank=True, max_length=100)
@@ -59,7 +65,7 @@ class Profile(models.Model):
     state = models.CharField(blank=True, max_length=20)
     country = models.CharField(blank=True, max_length=20)
     mobile = models.CharField(null=True, blank=True, max_length=15)
-    profile_picture = models.ImageField(null=True, blank=True, upload_to='user_profile')
+    profile_picture = models.ImageField(null=True, blank=True, upload_to=profile_directory_path)
     
     @property
     def full_name(self):
