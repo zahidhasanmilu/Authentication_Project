@@ -3,11 +3,11 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from app_account.authentication_backends import EmailBackEnd
+from app_account.utils import logout_required
 
 # Create your views here.
 
-
+@logout_required
 def user_signup(request):
     form = CustomUserCreationForm()
     if request.method == 'POST':
@@ -20,7 +20,7 @@ def user_signup(request):
 
 
 
-
+@logout_required
 def user_login(request):
 
     if request.method == 'POST':
